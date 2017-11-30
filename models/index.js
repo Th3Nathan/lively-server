@@ -2,7 +2,9 @@ import Sequelize from 'sequelize';
 
 const sequelize = new Sequelize('lively', 'nathan', ' ', {
   dialect: 'postgres',
-  underscored: true,
+  define: {
+    underscored: true,
+  }
 } );
 const models = {
     User: sequelize.import('./user'),
@@ -10,7 +12,6 @@ const models = {
     Group: sequelize.import('./group'),
     Image: sequelize.import('./image'),
     Message: sequelize.import('./message'),
-    Reaction: sequelize.import('./reaction'),
     Team: sequelize.import('./team'),
 };
 

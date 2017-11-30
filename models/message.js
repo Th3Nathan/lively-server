@@ -9,8 +9,7 @@ export default (sequelize, DataTypes) => {
             }, 
             messageble: DataTypes.STRING,
             messagebleId: DataTypes.INTEGER
-        }, 
-        {underscored: true}
+        }
     );
 
     Message.prototype.getItem = function(options) {
@@ -56,8 +55,8 @@ export default (sequelize, DataTypes) => {
             foreignKey: {name: 'teamId', field: 'team_id'}
         });
 
-        Message.hasMany(models.Reaction, {
-            foreignKey: {name: 'messageId', field: 'message_id'}
+        Message.hasMany(models.Image, {
+            foreignKey: {name: 'imageableId', field: 'imageable_id'}
         });
     }    
 

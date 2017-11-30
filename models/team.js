@@ -6,13 +6,12 @@ export default (sequelize, DataTypes) => {
                 notNull: true, 
                 unique: true 
             },
-        }, 
-        { underscored: true }
+        }
     );
 
     Team.associate = function(models) {
-        Team.belongsTo(models.Image, {
-            foreignKey: { name: 'imageId', field: 'image_id'}
+        Team.hasMany(models.Image, {
+            foreignKey: { name: 'imageableId', field: 'imageable_id'}
         });
 
         Team.belongsToMany(models.User, {

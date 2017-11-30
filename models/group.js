@@ -4,8 +4,7 @@ export default (sequelize, DataTypes) => {
             latestActivity: {
                 type: DataTypes.DATE 
             }
-        },
-        { underscored: true }
+        }
     );
 
     Group.associate = function(models) {

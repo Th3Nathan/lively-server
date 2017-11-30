@@ -15,8 +15,7 @@ export default (sequelize, DataTypes) => {
                 notNull: true, 
                 defaultValue: false 
             }
-        }, 
-        { underscored: true }
+        }
     );
 
     Channel.associate = function(models) {

@@ -5,12 +5,13 @@ export default (sequelize, DataTypes) => {
             username: {
                 type: DataTypes.STRING, 
                 notNull: true, 
-                unique: true 
+                unique: true,
             },
             email: {
                 type: DataTypes.STRING, 
                 unique: true, 
-                isEmail: true
+                notNull: true,
+              
             },
             password: {
                 type: DataTypes.STRING, 
@@ -18,16 +19,13 @@ export default (sequelize, DataTypes) => {
             }, 
             snooze_until: { 
                 type: DataTypes.DATE, 
-                notNull: true, 
-                defaultValue: null
             }, 
-        }, 
-        {underscored: true}
+        }
     );
 
     User.associate = function(models) {
-        User.belongsTo(models.Image, {
-            foreignKey: {name: 'imageId', field: 'image_id'}
+        User.hasOne(models.Image, {
+            foreignKey: {name: 'imageableId', field: 'imageable_id'}
         });
 
         User.belongsToMany(models.Team, {
