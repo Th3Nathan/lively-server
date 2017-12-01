@@ -20,7 +20,7 @@ export default (sequelize, DataTypes) => {
             foreignKey: {name: 'messagebleId', field: 'messageble_id'},
             constraints: false,
             scope: {
-              commentable: 'group'
+              messageable: 'group'
             }
         });
     }

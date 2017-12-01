@@ -23,6 +23,7 @@ export default (sequelize, DataTypes) => {
         }
     );
 
+    User.prototype.sayHi = () => "hello"
     User.associate = function(models) {
         User.hasOne(models.Image, {
             foreignKey: {name: 'imageableId', field: 'imageable_id'}
@@ -37,7 +38,7 @@ export default (sequelize, DataTypes) => {
         });
 
         User.belongsToMany(models.Channel, {
-            through: 'userChannel'
+            through: 'userchannel'
         });
 
         User.hasMany(models.Message, {
@@ -45,7 +46,7 @@ export default (sequelize, DataTypes) => {
         });
 
         User.hasMany(models.Channel, {
-            foreignKey: {name: 'authorId', field: 'author_id'},
+            foreignKey: {name: 'creatorId', field: 'creator_id'},
             as: 'creator'
         });
     }

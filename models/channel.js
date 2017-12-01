@@ -8,7 +8,8 @@ export default (sequelize, DataTypes) => {
                 notNull: true 
             },
             latestActivity: {
-                type: DataTypes.DATE
+                type: DataTypes.DATE,
+                defaultValue: Date.now()
             },
             private: {
                 type: DataTypes.BOOLEAN, 
@@ -24,14 +25,19 @@ export default (sequelize, DataTypes) => {
         });
 
         Channel.belongsToMany(models.User, {
-            through: 'userChannel'
+            through: 'userchannel'
         });
 
+        Channel.belongsTo(models.User, {
+            foreignKey: {name: 'creatorId', field: 'creator_id'},
+            as: 'creator'
+        }) 
+
         Channel.hasMany(models.Message, {
-            foreignKey: {name: 'messagebleId', field: 'messageble_id'},
+            foreignKey: {name: 'messageableId', field: 'messageable_id'},
             constraints: false,
             scope: {
-              commentable: 'channel'
+              messageable: 'channel'
             }
         });
 

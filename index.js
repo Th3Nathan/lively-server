@@ -5,7 +5,7 @@ import { makeExecutableSchema } from 'graphql-tools';
 import models from './models';
 import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
-
+import seed from './seed';
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
 
@@ -26,13 +26,17 @@ app.use(
     graphqlExpress({
         schema, 
         context: {
-            models
+            models,
+            user: {
+                id: 1
+            }
         } 
     })
 );
 app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' })); // if you want GraphiQL enabled
 
 models.sequelize.sync({force: true}).then(x => {
+    seed(models);
     app.listen(PORT);
     console.log("listening")
-})
+});

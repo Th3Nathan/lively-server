@@ -1,11 +1,18 @@
-export default `
     type Team {
-        name: String 
+        name: String! 
         imageUrl: String 
         members: [User]!
         messages: [Message]!
         messageCount: Int! 
         channels: [Channel]!
+        owner: User!
         channelCount: Int!
     }
-`
+    input CreateTeamInput {
+        name: String!
+    }
+    type Mutation {
+        createTeam(input: CreateTeamInput!): Boolean!
+    }
+
+

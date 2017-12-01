@@ -18,16 +18,16 @@ export default (sequelize, DataTypes) => {
             through: 'userTeam'
         });
 
-        Team.hasMany(models.Message, {
-            foreignKey: { name: 'teamId', field: 'team_id'}
-        });
+        Team.belongsTo(models.User, {
+            foreignKey: 'owner'
+        })
 
         Team.hasMany(models.Channel, {
             foreignKey: { name: 'teamId', field: 'team_id'},
         });
         
         Team.hasMany(models.Message, {
-            foreignKey: { name: 'messageId', field: 'message_id'},
+            foreignKey: { name: 'teamId', field: 'team_id'},
         });
     }
     return Team;

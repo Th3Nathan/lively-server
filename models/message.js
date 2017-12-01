@@ -4,16 +4,16 @@ export default (sequelize, DataTypes) => {
     const Message = sequelize.define('message', 
         {
             contents: {
-                type: DataTypes.STRING, 
+                type: DataTypes.TEXT, 
                 notNull: true
             }, 
-            messageble: DataTypes.STRING,
-            messagebleId: DataTypes.INTEGER
+            messageable: DataTypes.STRING,
+            messageableId: {type: DataTypes.INTEGER, field: 'messageable_id'}
         }
     );
 
     Message.prototype.getItem = function(options) {
-        return this['get' + this.get('messageble').substr(0, 1).toUpperCase() + this.get('messageble').substr(1)](options);
+        return this['get' + this.get('messageable').substr(0, 1).toUpperCase() + this.get('messageable').substr(1)](options);
     };
 
     Message.associate = function(models) {
@@ -26,28 +26,28 @@ export default (sequelize, DataTypes) => {
         });
 
         Message.belongsTo(models.Channel, {
-            foreignKey: {name: 'messagebleId', field: 'messageble_id'}, 
+            foreignKey: {name: 'messageableId', field: 'messageable_id'}, 
             constraints: false, 
             as: 'channel'
         });
 
         Message.belongsTo(models.Group, {
-            foreignKey: {name: 'messagebleId', field: 'messageble_id'},
+            foreignKey: {name: 'messageableId', field: 'messageable_id'},
             constraints: false,
             as: 'group'
         });
 
         Message.belongsTo(models.Message, {
-            foreignKey: {name: 'messagebleId', field: 'messageble_id'},
+            foreignKey: {name: 'messageableId', field: 'messageable_id'},
             constraints: false,
             as: 'thread'
         });
 
         Message.hasMany(models.Message, {
-            foreignKey: {name: 'messagebleId', field: 'messageble_id'},
+            foreignKey: {name: 'messageableId', field: 'messageable_id'},
             constraints: false,
             scope: {
-              commentable: 'thread'
+              messageable: 'thread'
             }
         });
 

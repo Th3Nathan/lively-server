@@ -1,0 +1,37 @@
+
+    type User {
+        id: Int! 
+        username: String!
+        email: String!
+        password: String!
+        sayHi: String
+        snoozeUntil: Int
+        channels: [Channel]!
+        team: [Team]!
+        groups: [Group]!
+        messages: [Message]!
+        ownedChannels: [Channel]!
+        imageUrl: String
+        unreadGroups: [Group]!
+        unreadChannel: [Channel]!
+    }
+    type Query {
+        getUser(id: Int!): User!
+        allUsers: [User!]!
+    }
+    # nesting gives more flexebility
+    input CreateUserInput {
+        username: String!
+        email: String! 
+        password: String!
+    }
+
+    type CreateUserOutput {
+        user: User!
+    }
+     
+    type Mutation {
+        createUser(input: CreateUserInput!): CreateUserOutput!
+    }
+
+

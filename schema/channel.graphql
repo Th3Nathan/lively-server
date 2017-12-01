@@ -1,0 +1,23 @@
+
+type Channel {
+    name: String!
+    lastActive: Int
+    private: Boolean
+    members: [User]!
+    messages: [Message]!
+    team: Team 
+}
+
+input CreateChannelInput {
+    name: String!
+    private: Boolean
+    teamId: Int!
+}
+
+
+type Mutation {
+    createChannel(input: CreateChannelInput!): Boolean!
+}
+
+
+
