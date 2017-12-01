@@ -6,6 +6,7 @@ import models from './models';
 import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import seed from './seed';
+import cors from 'cors';
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
 
@@ -18,7 +19,7 @@ const myGraphQLSchema = schema;
 const PORT = 8080;
 
 const app = express();
-
+app.use(cors('*'));
 // bodyParser is needed just for POST.
 app.use(
     '/graphql', 
@@ -33,6 +34,7 @@ app.use(
         } 
     })
 );
+
 app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' })); // if you want GraphiQL enabled
 
 models.sequelize.sync({force: true}).then(x => {

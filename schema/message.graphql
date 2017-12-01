@@ -14,13 +14,15 @@ type Message {
 
 input CreateMessageInput {
     content: String!
-    private: Boolean
     teamId: Int!
+    authorId: Int!
+    messageable: String! 
+    messageableId: Int! 
 }
 
 
 type Mutation {
-    createChannel(input: CreateChannelInput!): Boolean!
+    createMessage(input: CreateMessageInput!): Boolean!
 }
 
 
