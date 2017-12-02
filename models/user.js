@@ -13,8 +13,9 @@ export default (sequelize, DataTypes) => {
                 notNull: true,
               
             },
-            password: {
+            passwordDigest: {
                 type: DataTypes.STRING, 
+                field: 'password_digest',
                 notNull: true 
             }, 
             snooze_until: { 

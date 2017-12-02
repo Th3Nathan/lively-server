@@ -32,6 +32,7 @@
      
     type Mutation {
         createUser(input: CreateUserInput!): CreateUserOutput!
+        registerUser(input: CreateUserInput!): Boolean!
     }
 
 
