@@ -1,5 +1,9 @@
 import Faker from 'faker';
 
+const stringToTeamName = (str) => {
+    return str.toLowerCase().replace(/ /g, '-');
+}
+
 const user1 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
@@ -25,11 +29,15 @@ const user4 = {
 }
 
 const team1 = {
-    name: 'App Academy'
+    name: 'App Academy',
 }
 
 const team2 = {
-    name: Faker.company.companyName()
+    name: 'Google  google',
+}
+
+const team3 = {
+    name: 'GooglE  google',
 }
 
 const channel1 = {
@@ -55,6 +63,7 @@ export default async ({User, Message, Team, Group, Image, Channel}) => {
         await User.create(user4);
         let team = await Team.create({...team1, owner: savedUser.id});
         let otherteam = await Team.create({...team2, owner: savedUser.id});
+        let badTeam = await Team.create({...team3, owner: savedUser.id});
         let c1 = await Channel.create({...channel1, creatorId: savedUser.id, teamId: team.id});
         let c2 = await Channel.create({...channel2, creatorId: savedUser.id, teamId: team.id});
         let c3 = await Channel.create({...channel3, creatorId: savedUser.id, teamId: team.id});

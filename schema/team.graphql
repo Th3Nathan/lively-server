@@ -15,11 +15,14 @@
     input DoesTeamExistInput {
         name: String!
     }
+    
     type Query {
-        doesTeamExist(input: DoesTeamExistInput!): Boolean!
+        
     }
+
     type Mutation {
         createTeam(input: CreateTeamInput!): Boolean!
+        doesTeamExist(input: DoesTeamExistInput!): Boolean!
     }
 
 

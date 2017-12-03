@@ -9,12 +9,6 @@
 // }
 
 export default {
-    Query: {
-        doesTeamExist: async (parent, {input: {name}}, {models: {Team}}) => {
-            let result = await Team.findOne({ where: { name } });
-            return !!result;
-        },        
-    },
     Mutation: {
         createTeam: async (parent, args, {models, user}) => {
             try {
@@ -24,6 +18,10 @@ export default {
                 console.log(err);
                 return false;
             }
-        }
+        },
+        doesTeamExist: async (parent, {input: {name}}, {models: {Team}}) => {
+            let result = await Team.findOne({ where: { name } });
+            return !!result;
+        },        
     }
 }
