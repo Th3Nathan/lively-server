@@ -12,6 +12,10 @@ export default (sequelize, DataTypes) => {
                         args: /^[a-z][a-z ]*[a-z]$/igm,
                         msg: "Invalid Team Name!!!"
                     },
+                    len: {
+                        args: [3, 15],
+                        msg: "Team name must be between 3 and 7 charachters",
+                    },
                     isUnique: async function(val, next) {
                         if (val) {
                             let converted = val.toLowerCase().replace(/ /g, '-');

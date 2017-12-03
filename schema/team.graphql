@@ -16,8 +16,19 @@
         url: String!
     }
     
+    input TeamFromUrlInput {
+        url: String!
+    }
+
+    type TeamFromUrlResponse {
+        name: String
+        url: String 
+        ok: Boolean! 
+        errors: [Error!]
+    }
+
     type Query {
-        
+        teamFromUrl(input: TeamFromUrlInput!): TeamFromUrlResponse!
     }
 
     type Mutation {
