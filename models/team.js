@@ -1,3 +1,5 @@
+import {teamNameToUrl} from '../util';
+
 export default (sequelize, DataTypes) => {
     const Team = sequelize.define('team', 
         {

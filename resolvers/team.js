@@ -1,13 +1,5 @@
-// export default {
-//     // Query: {
-//     //     getUser: (_, {id}, {models}) => models.User.findOne({ where: { id } }),
-//     //     allUsers: (_, _, {models}) => models.User.findAll(),
-//     // },
-//     // Mutation: {
-//     //     createUser: (parent, args, {models}) => models.create(args),
-//     // },
-// }
 
+import {teamNameToUrl} from '../util';
 export default {
     Mutation: {
         createTeam: async (parent, args, {models, user}) => {
@@ -19,8 +11,8 @@ export default {
                 return false;
             }
         },
-        doesTeamExist: async (parent, {input: {name}}, {models: {Team}}) => {
-            let result = await Team.findOne({ where: { name } });
+        doesTeamExist: async (parent, {input: {url}}, {models: {Team}}) => {
+            let result = await Team.findOne({ where: { url } });
             return !!result;
         },        
     }
