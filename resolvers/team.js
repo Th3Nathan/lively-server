@@ -10,7 +10,7 @@
 
 export default {
     Query: {
-        doesTeamExist: async (parent, {input: name}, {models: Team}) => {
+        doesTeamExist: async (parent, {input: {name}}, {models: {Team}}) => {
             let result = await Team.findOne({ where: { name } });
             return !!result;
         },        
