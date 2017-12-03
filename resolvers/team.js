@@ -9,10 +9,16 @@
 // }
 
 export default {
+    Query: {
+        doesTeamExist: async (parent, {input: name}, {models: Team}) => {
+            let result = await Team.findOne({ where: { name } });
+            return !!result;
+        },        
+    },
     Mutation: {
         createTeam: async (parent, args, {models, user}) => {
             try {
-                await models.Team.create({...args.input, owner: 5});
+                await models.Team.create({...args.input, owner: user.id});
                 return true;
             } catch (err) {
                 console.log(err);

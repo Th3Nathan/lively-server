@@ -4,9 +4,15 @@ export default (sequelize, DataTypes) => {
             name: {
                 type: DataTypes.STRING, 
                 notNull: true, 
-                unique: true 
+                unique: true,
+                validate: {
+                    is: {
+                        args: /^[a-z][a-z ]*[a-z]$/igm,
+                        msg: "Invalid Team Name!!!"
+                    }
+                }
             },
-        }
+        },
     );
 
     Team.associate = function(models) {
