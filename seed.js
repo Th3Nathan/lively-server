@@ -7,7 +7,7 @@ const stringToTeamName = (str) => {
 const user1 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    password: Faker.internet.password(),
+    passwordDigest: Faker.internet.password(),
 }
 
 const user2 = {
@@ -57,6 +57,7 @@ const channel4 = {
 }
 
 export default async ({User, Message, Team, Group, Image, Channel}) => {
+    try {
         let savedUser = await User.create(user1);
         let savedUser2 = await User.create(user2);
         await User.create(user3);
@@ -77,5 +78,8 @@ export default async ({User, Message, Team, Group, Image, Channel}) => {
         let thread2 = await Message.create({contents: Faker.lorem.sentence(), teamId: team.id, authorId: savedUser.id});
         let thread3 = await Message.create({contents: Faker.lorem.sentence(), teamId: team.id, authorId: savedUser.id});
         c1.addMessages([thread.id, thread2.id, thread3.id]);
+    } catch (err) {
+        return err;
+    }
 
 }

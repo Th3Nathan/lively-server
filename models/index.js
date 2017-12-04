@@ -1,11 +1,20 @@
 import Sequelize from 'sequelize';
 
-const sequelize = new Sequelize('lively', 'nathan', ' ', {
-  dialect: 'postgres',
-  define: {
-    underscored: true,
-  }
-} );
+let sequelize;
+if (process.env.DATABASE_URL) {
+  sequelize = new Sequelize(process.env.DATABASE_URL, {
+    dialiect: 'postgres',
+    protocol: 'postgres',
+    logging: true
+  })
+} else {
+  sequelize = new Sequelize('lively', 'nathan', ' ', {
+    dialect: 'postgres',
+    define: {
+      underscored: true,
+    }
+  });
+}
 const models = {
     User: sequelize.import('./user'),
     Channel: sequelize.import('./channel'),
