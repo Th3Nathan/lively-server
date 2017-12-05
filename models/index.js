@@ -4,8 +4,7 @@ let sequelize;
 if (process.env.DATABASE_URL) {
   sequelize = new Sequelize(process.env.DATABASE_URL, {
     dialiect: 'postgres',
-    protocol: 'postgres',
-    logging: true
+    define: {underscored: true}
   })
 } else {
   sequelize = new Sequelize('lively', 'nathan', ' ', {
