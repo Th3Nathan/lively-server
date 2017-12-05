@@ -18,14 +18,21 @@ export default {
             }
             
         },
-        loginUser: async(parent, {input: {email, password}}, {models: {User}}) => {
+        loginUser: async(parent, {input: {email, password, url}}, {models: {User}}) => {
             try {
                 let user = await User.findOne({where: { email }});
                 if (!user) return {ok: false};
                 if (bcrypt.compareSync(password, user.passwordDigest)) {
-                    return {
-                        ok: true,
-                        user
+                    let matchingTeam = user.getTeams({where: { url }});
+                    if (matchingTeam) {
+                        return {
+                            ok: true,
+                            user
+                        }   
+                    } else {
+                        return {
+                            ok: false,
+                        }
                     }
                 } else {
                     return {

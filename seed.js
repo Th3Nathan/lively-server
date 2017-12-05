@@ -69,8 +69,8 @@ export default async ({User, Message, Team, Group, Image, Channel}) => {
         await User.create(user3);
         await User.create(user4);
         let team = await Team.create({...team1, owner: savedUser.id});
+        team.addUser(me.id);
         let otherteam = await Team.create({...team2, owner: savedUser.id});
-        let badTeam = await Team.create({...team3, owner: savedUser.id});
         let c1 = await Channel.create({...channel1, creatorId: savedUser.id, teamId: team.id});
         let c2 = await Channel.create({...channel2, creatorId: savedUser.id, teamId: team.id});
         let c3 = await Channel.create({...channel3, creatorId: savedUser.id, teamId: team.id});
@@ -84,6 +84,22 @@ export default async ({User, Message, Team, Group, Image, Channel}) => {
         let thread2 = await Message.create({contents: Faker.lorem.sentence(), teamId: team.id, authorId: savedUser.id});
         let thread3 = await Message.create({contents: Faker.lorem.sentence(), teamId: team.id, authorId: savedUser.id});
         c1.addMessages([thread.id, thread2.id, thread3.id]);
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        console.log("---")
+        let nathansteam = await me.getTeams({where: {url: 'app-academy'}});
+        console.log(nathansteam);
+
     } catch (err) {
         return err;
     }

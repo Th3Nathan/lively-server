@@ -54,7 +54,7 @@ export default (sequelize, DataTypes) => {
         });
 
         Team.belongsToMany(models.User, {
-            through: 'userTeam'
+            through: 'user_team'
         });
 
         Team.belongsTo(models.User, {

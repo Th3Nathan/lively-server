@@ -31,9 +31,12 @@
         user: User!
     }
 
+
+    # url corresponds to team url
     input LoginUserInput {
         email: String!
         password: String!
+        url: String!
     }
      
     type LoginUserOutput {
