@@ -14,6 +14,7 @@
         imageUrl: String
         unreadGroups: [Group]!
         unreadChannel: [Channel]!
+        errors: [Error]
     }
     type Query {
         getUser(id: Int!): User!
@@ -29,10 +30,21 @@
     type CreateUserOutput {
         user: User!
     }
+
+    input LoginUserInput {
+        email: String!
+        password: String!
+    }
      
+    type LoginUserOutput {
+        ok: Boolean!
+        user: User
+        errors: [Error]
+    } 
     type Mutation {
         createUser(input: CreateUserInput!): CreateUserOutput!
         registerUser(input: CreateUserInput!): Boolean!
+        loginUser(input: LoginUserInput!): LoginUserOutput
     }
 
 

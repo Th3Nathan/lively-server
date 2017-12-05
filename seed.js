@@ -1,8 +1,11 @@
 import Faker from 'faker';
-
+import bcrypt from 'bcrypt'
 const stringToTeamName = (str) => {
     return str.toLowerCase().replace(/ /g, '-');
 }
+
+// password is password
+
 
 const user1 = {
     username: Faker.internet.userName(),
@@ -13,19 +16,19 @@ const user1 = {
 const user2 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    password: Faker.internet.password(),
+    passwordDigest: Faker.internet.password(),
 }
 
 const user3 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    password: Faker.internet.password(),
+    passwordDigest: Faker.internet.password(),
 }
 
 const user4 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    password: Faker.internet.password(),
+    passwordDigest: Faker.internet.password(),
 }
 
 const team1 = {
@@ -36,9 +39,6 @@ const team2 = {
     name: 'Google  google',
 }
 
-const team3 = {
-    name: 'GooglE  google',
-}
 
 const channel1 = {
     name: Faker.random.word()
@@ -56,8 +56,14 @@ const channel4 = {
     name: Faker.random.word()
 }
 
+const nathan = {
+    username: 'th3nathan',
+    email: 'nathanevass@gmail.com',
+}
 export default async ({User, Message, Team, Group, Image, Channel}) => {
     try {
+        nathan.passwordDigest = await bcrypt.hash('password', 12);
+        let me = await User.create(nathan);
         let savedUser = await User.create(user1);
         let savedUser2 = await User.create(user2);
         await User.create(user3);
