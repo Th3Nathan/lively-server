@@ -30,16 +30,8 @@ export default {
                             ok: true,
                             user
                         }   
-                    } else {
-                        return {
-                            ok: false,
-                        }
                     }
-                } else {
-                    return {
-                        ok: false 
-                    }
-                }
+                } return {ok: false}
            } catch(err) {
                return {
                    errors: formatErrors(err, models),
