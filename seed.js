@@ -97,7 +97,7 @@ export default async ({User, Message, Team, Group, Image, Channel}) => {
         console.log("---")
         console.log("---")
         console.log("---")
-        let nathansteam = await me.getTeams({where: {url: 'app-academy'}});
+        let nathansteam = await me.getTeams({where: {url: 'google--google'}});
         console.log(nathansteam);
 
     } catch (err) {

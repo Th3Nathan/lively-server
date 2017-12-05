@@ -23,8 +23,9 @@ export default {
                 let user = await User.findOne({where: { email }});
                 if (!user) return {ok: false};
                 if (bcrypt.compareSync(password, user.passwordDigest)) {
-                    let matchingTeam = user.getTeams({where: { url }});
-                    if (matchingTeam) {
+                    let matchingTeams = await user.getTeams({where: { url }});
+                    console.log(matchingTeams);
+                    if (matchingTeams.length !== 0) {
                         return {
                             ok: true,
                             user
