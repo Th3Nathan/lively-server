@@ -10,25 +10,25 @@ const stringToTeamName = (str) => {
 const user1 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    passwordDigest: Faker.internet.password(),
+    password: Faker.internet.password(),
 }
 
 const user2 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    passwordDigest: Faker.internet.password(),
+    password: Faker.internet.password(),
 }
 
 const user3 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    passwordDigest: Faker.internet.password(),
+    password: Faker.internet.password(),
 }
 
 const user4 = {
     username: Faker.internet.userName(),
     email: Faker.internet.email(),
-    passwordDigest: Faker.internet.password(),
+    password: Faker.internet.password(),
 }
 
 const team1 = {
@@ -59,10 +59,10 @@ const channel4 = {
 const nathan = {
     username: 'th3nathan',
     email: 'nathanevass@gmail.com',
+    password: 'password'
 }
 export default async ({User, Message, Team, Group, Image, Channel}) => {
     try {
-        nathan.passwordDigest = await bcrypt.hash('password', 12);
         let me = await User.create(nathan);
         let savedUser = await User.create(user1);
         let savedUser2 = await User.create(user2);
