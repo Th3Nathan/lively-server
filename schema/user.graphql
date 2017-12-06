@@ -28,26 +28,42 @@
     }
 
     type CreateUserOutput {
-        user: User!
+        user: User
+        ok: Boolean!
+        error: Error
     }
 
 
     # url corresponds to team url
-    input LoginUserInput {
+    input TeamLoginInput {
         email: String!
         password: String!
         url: String!
     }
      
-    type LoginUserOutput {
+    type TeamLoginOutput {
         ok: Boolean!
         user: User
         errors: [Error]
     } 
+
+    input LoginUserInput {
+        username: String!
+        email: String! 
+        password: String!
+    }
+
+    type LoginUserOutput {
+        user: User
+        ok: Boolean!
+        error: Error  
+    }
+
     type Mutation {
         createUser(input: CreateUserInput!): CreateUserOutput!
+        loginUser(input: LoginUserInput!): LoginUserOutput!
         registerUser(input: CreateUserInput!): Boolean!
-        loginUser(input: LoginUserInput!): LoginUserOutput
+        teamLogin(input: TeamLoginInput!): TeamLoginOutput
     }
 
 

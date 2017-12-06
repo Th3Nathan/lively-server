@@ -6,19 +6,42 @@ export default {
         allUsers: (parent, args, {models}) => models.User.findAll(),
     },
     Mutation: {
-        createUser: (parent, args, {models}) => ({user: models.User.create(args.input)}),
-        registerUser: async (parent, {input: {username, email, password}}, {models}) => {
+        createUser: async (parent, {input: {username, email, password}}, {models}) => {
+            if (password.length < 5) {
+                return {
+                    ok: false,
+                    error: {message: 'Password must be at least 5 charachters', path: 'createUser'}
+                }
+            }
             try {
                 const passwordDigest = await bcrypt.hash(password, 12);
-                await models.User.create({passwordDigest, username, email});
-                return true;
+                let user = await models.User.create({username, email, passwordDigest});
+                return {ok: true, user};
             } catch (err) {
-                console.log(err);
-                return false;
+                return {
+                    error: formatErrors(err, models)[0],
+                    ok: false,
+                }         
             }
-            
         },
-        loginUser: async(parent, {input: {email, password, url}}, {models: {User}}) => {
+        loginUser: async (parent, {input: {username, email, password}}, {models}) => {
+            try {
+                let user = await models.User.findOne({where: { email, username }});
+                if (!user) return {ok: false, error: {message: "No users with that username and email", path: "loginUser"}};
+                if (bcrypt.compareSync(password, user.passwordDigest)) {
+                    return {
+                        ok: true,
+                        user
+                    }   
+                } return {ok: false, error: {message: "The password was incorrect", path: "loginUser"}}
+           } catch(err) {
+               return {
+                   error: {message: "There was a problem authenticating", path: "loginUser"},
+                   ok: false,
+               }
+           }
+        },
+        teamLogin: async(parent, {input: {email, password, url}}, {models: {User}}) => {
             try {
                 let user = await User.findOne({where: { email }});
                 if (!user) return {ok: false};

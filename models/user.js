@@ -6,15 +6,21 @@ export default (sequelize, DataTypes) => {
                 type: DataTypes.STRING, 
                 notNull: true, 
                 unique: true,
+                validate: {
+                    len: {
+                        args: [3, 20],
+                        msg: 'Username length must be 3-20 characters.'
+                    }
+                }
             },
             email: {
                 type: DataTypes.STRING, 
-                unique: true, 
                 notNull: true,
-                validates: {
+                unique: true,
+                validate: {
                     isEmail: {
                         args: true,
-                        msg: "Invalid email",
+                        msg: "Enter a valid email",
                     },
                 },
             },
