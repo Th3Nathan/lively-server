@@ -1,12 +1,17 @@
+    # type Team {
+    #     name: String! 
+    #     imageUrl: String 
+    #     members: [User]!
+    #     messages: [Message]!
+    #     messageCount: Int! 
+    #     channels: [Channel]!
+    #     owner: User!
+    #     channelCount: Int!
+    # }
+
     type Team {
-        name: String! 
-        imageUrl: String 
-        members: [User]!
-        messages: [Message]!
-        messageCount: Int! 
-        channels: [Channel]!
-        owner: User!
-        channelCount: Int!
+        name: String 
+        url: String 
     }
     input CreateTeamInput {
         name: String!
@@ -24,15 +29,21 @@
         name: String
         url: String 
         ok: Boolean! 
-        errors: [Error!]
+        errors: [Error]
     }
 
     type Query {
         teamFromUrl(input: TeamFromUrlInput!): TeamFromUrlResponse!
     }
 
+    type CreateTeamResponse {
+        team: Team
+        ok: Boolean! 
+        errors: [Error]
+    }
+
     type Mutation {
-        createTeam(input: CreateTeamInput!): Boolean!
+        createTeam(input: CreateTeamInput!): CreateTeamResponse!
         doesTeamExist(input: DoesTeamExistInput!): Boolean!
     }
 

@@ -31,8 +31,9 @@
         user: User
         ok: Boolean!
         error: Error
+        token: String 
+        refreshToken: String
     }
-
 
     # url corresponds to team url
     input TeamLoginInput {
@@ -45,6 +46,8 @@
         ok: Boolean!
         user: User
         errors: [Error]
+        token: String 
+        refreshToken: String
     } 
 
     input LoginUserInput {
@@ -57,6 +60,8 @@
         user: User
         ok: Boolean!
         error: Error  
+        token: String 
+        refreshToken: String
     }
 
     type Mutation {

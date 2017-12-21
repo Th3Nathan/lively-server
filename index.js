@@ -13,6 +13,7 @@ const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers'))
 export const schema = makeExecutableSchema({
     typeDefs,
     resolvers,
+    printErrors: true,
 });
 
 const myGraphQLSchema = schema;

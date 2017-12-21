@@ -15,12 +15,19 @@ export default {
     },
     Mutation: {
         createTeam: async (parent, args, {models, user}) => {
+            console.log("IM HERE IN THE MUTATION");
             try {
-                await models.Team.create({...args.input, owner: user.id});
-                return true;
+                let team = await models.Team.create({...args.input, owner: user.id});
+                return {
+                    team: {name: team.name, url: team.url},
+                    ok: true 
+                }
             } catch (err) {
                 console.log(err);
-                return false;
+                return {
+                    ok: false,
+                    errors: formatErrors(err, models),
+                };
             }
         },
         doesTeamExist: async (parent, {input: {url}}, {models: {Team}}) => {
