@@ -22,6 +22,7 @@ const PORT = process.env.PORT || 8080;
 const app = express();
 app.use(cors('*'));
 // bodyParser is needed just for POST.
+const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
 app.use(
     '/graphql', 
     bodyParser.json(), 
@@ -29,6 +30,7 @@ app.use(
         schema, 
         context: {
             models,
+            SECRET,
             user: {
                 id: 1
             }
