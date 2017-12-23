@@ -41,14 +41,6 @@
         password: String!
         url: String!
     }
-     
-    type TeamLoginOutput {
-        ok: Boolean!
-        user: User
-        errors: [Error]
-        token: String 
-        refreshToken: String
-    } 
 
     input LoginUserInput {
         username: String!
@@ -59,16 +51,16 @@
     type LoginUserOutput {
         user: User
         ok: Boolean!
-        error: Error  
+        errors: [Error]  
         token: String 
         refreshToken: String
     }
 
     type Mutation {
-        createUser(input: CreateUserInput!): CreateUserOutput!
+        createUser(input: CreateUserInput!): LoginUserOutput!
         loginUser(input: LoginUserInput!): LoginUserOutput!
         registerUser(input: CreateUserInput!): Boolean!
-        teamLogin(input: TeamLoginInput!): TeamLoginOutput
+        teamLogin(input: TeamLoginInput!): LoginUserOutput!
     }
 
 

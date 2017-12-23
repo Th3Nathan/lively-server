@@ -23,6 +23,7 @@
     "faker": "^4.1.0",
     "graphql": "^0.11.7",
     "graphql-tools": "^2.9.0",
+    "jsonwebtoken": "^8.1.0",
     "merge-graphql-schemas": "^1.3.0",
     "nodemon": "^1.12.1",
     "pg": "^7.4.0",
