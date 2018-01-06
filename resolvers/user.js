@@ -21,7 +21,7 @@ export default {
         loginUser: async (parent, {input: {username, email, password}}, {models, SECRET}) => tryLogin(email, password, models, SECRET),
         teamLogin: async(parent, {input: {email, password, url}}, {models: {User}, SECRET}) => {
             try {
-                let userResponse =  await tryLogin(email, password, models, SECRET)
+                let userResponse =  await tryLogin(email, password, models, SECRET);
                 let matchingTeams = await userResponse.user.getTeams({where: { url }});
                 if (matchingTeams.length !== 0) {
                     return userResponse; 

@@ -7,6 +7,7 @@ import path from 'path';
 import { fileLoader, mergeTypes, mergeResolvers } from 'merge-graphql-schemas';
 import seed from './seed';
 import cors from 'cors';
+import { addUser } from './auth';
 const typeDefs = mergeTypes(fileLoader(path.join(__dirname, './schema')));
 const resolvers = mergeResolvers(fileLoader(path.join(__dirname, './resolvers')));
 
@@ -18,24 +19,25 @@ export const schema = makeExecutableSchema({
 
 const myGraphQLSchema = schema;
 const PORT = process.env.PORT || 8080;
+export const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
+
+  
 
 const app = express();
 app.use(cors('*'));
+app.use(addUser);
 // bodyParser is needed just for POST.
-const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
 app.use(
     '/graphql', 
     bodyParser.json(), 
-    graphqlExpress({
+    graphqlExpress(req =>({
         schema, 
         context: {
             models,
             SECRET,
-            user: {
-                id: 1
-            }
+            user: req.user,
         } 
-    })
+    }))
 );
 
 app.get('/graphiql', graphiqlExpress({ endpointURL: '/graphql' })); // if you want GraphiQL enabled

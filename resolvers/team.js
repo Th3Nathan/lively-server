@@ -15,7 +15,6 @@ export default {
     },
     Mutation: {
         createTeam: async (parent, args, {models, user}) => {
-            console.log("IM HERE IN THE MUTATION");
             try {
                 let team = await models.Team.create({...args.input, owner: user.id});
                 return {

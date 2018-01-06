@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import bcrypt from 'bcrypt';
-
+import SECRET from './index';
 export const createTokens = async (user, secret) => {
     const token = jwt.sign(
         {
@@ -46,3 +46,44 @@ export const tryLogin = async (email, password, models, SECRET) => {
         refreshToken,
     };
 };
+
+export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2) => {
+    let userId = 0;
+    try {
+        userId = jwt.decode(refreshToken);
+        const user = await models.User.findOne({where: {id: userId}});
+        if (!user) {
+            throw new Error("no user found");
+        }
+        const refreshTokenSecret = user.password + SECRET;
+        jwt.verify(refreshToken, refreshTokenSecret);
+        const newTokens = await createTokens(user, SECRET)
+        return {
+            user,
+            token: newTokens.token,
+            refreshToken: newTokens.refreshToken,
+        }
+    } catch(err) {
+        return {};
+    }
+}
+
+export const addUser = async (req, res, next) => {
+    const token = req.headers['x-token'];
+    if (token) {
+      try {
+        const { user } = jwt.verify(token, SECRET);
+        req.user = user;
+      } catch (err) {
+        const refreshToken = req.headers['x-refresh-token'];
+        const newTokens = await refreshTokens(token, refreshToken, models, SECRET);
+        if (newTokens.token && newTokens.refreshToken) {
+          res.set('Access-Control-Expose-Headers', 'x-token, x-refresh-token');
+          res.set('x-token', newTokens.token);
+          res.set('x-refresh-token', newTokens.refreshToken);
+        }
+        req.user = newTokens.user;
+      }
+    }
+    next();
+  };
