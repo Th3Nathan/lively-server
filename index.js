@@ -27,6 +27,7 @@ const app = express();
 app.use(cors('*'));
 app.use(addUser);
 // bodyParser is needed just for POST.
+// user in context will eventually be req.user, but thats not working yet
 app.use(
     '/graphql', 
     bodyParser.json(), 
@@ -35,7 +36,9 @@ app.use(
         context: {
             models,
             SECRET,
-            user: req.user,
+            user: {
+                id: 1,
+            },
         } 
     }))
 );

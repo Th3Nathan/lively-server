@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import bcrypt from 'bcrypt';
 import SECRET from './index';
+import models from './models/index';
 export const createTokens = async (user, secret) => {
     const token = jwt.sign(
         {
@@ -47,7 +48,7 @@ export const tryLogin = async (email, password, models, SECRET) => {
     };
 };
 
-export const refreshTokens = async (token, refreshToken, models, SECRET, SECRET2) => {
+export const refreshTokens = async (token, refreshToken, models, SECRET) => {
     let userId = 0;
     try {
         userId = jwt.decode(refreshToken);
