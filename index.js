@@ -17,11 +17,8 @@ export const schema = makeExecutableSchema({
     printErrors: true,
 });
 
-const myGraphQLSchema = schema;
 const PORT = process.env.PORT || 8080;
 export const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
-
-  
 
 const app = express();
 app.use(cors('*'));
@@ -36,9 +33,7 @@ app.use(
         context: {
             models,
             SECRET,
-            user: {
-                id: 1,
-            },
+            user: req.user,
         } 
     }))
 );

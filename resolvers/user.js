@@ -7,10 +7,10 @@ export default {
         allUsers: (parent, args, {models}) => models.User.findAll(),
     },
     Mutation: {
-        createUser: async (parent, {input}, {models}) => {
+        createUser: async (parent, { input }, {models, SECRET}) => {
             try {
                 let user = await models.User.create(input);
-                return {ok: true, user};
+                return tryLogin(input.email, input.password, models, SECRET);
             } catch (err) {
                 return {
                     errors: formatErrors(err, models),
