@@ -18,11 +18,11 @@ export const schema = makeExecutableSchema({
 });
 
 const PORT = process.env.PORT || 8080;
-export const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
+const SECRET = 'qwertyuiopljhgfdsaasdfghjkl';
 
 const app = express();
 app.use(cors('*'));
-app.use(addUser);
+app.use(addUser(SECRET));
 // bodyParser is needed just for POST.
 // user in context will eventually be req.user, but thats not working yet
 app.use(

@@ -1,7 +1,6 @@
 import jwt from 'jsonwebtoken';
 import _ from 'lodash';
 import bcrypt from 'bcrypt';
-import SECRET from './index';
 import models from './models/index';
 export const createTokens = async (user, secret) => {
     const token = jwt.sign(
@@ -69,12 +68,12 @@ export const refreshTokens = async (token, refreshToken, models, SECRET) => {
     }
 }
 
-export const addUser = async (req, res, next) => {
+export const addUser = SECRET => async (req, res, next) => {
     const token = req.headers['x-token'];
     if (token) {
-      try {
-        const { user } = jwt.verify(token, SECRET);
-        req.user = user;
+        try {
+            const { user } = jwt.verify(token, SECRET);
+            req.user = user;
       } catch (err) {
         const refreshToken = req.headers['x-refresh-token'];
         const newTokens = await refreshTokens(token, refreshToken, models, SECRET);
